@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fale comigo no Telegram</title>
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4685983051687088');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4685983051687088&ev=PageView&noscript=1"/></noscript>
+
+<style>
+  :root { --bg:#f5f7fa; --text:#14202b; --muted:#5a6978; --btn:#229ed9; --btn-hover:#1b86b8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#10181f; --text:#eef3f7; --muted:#9fb0bf; }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  main { max-width: 420px; text-align: center; }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 12px; }
+  p { color: var(--muted); font-size: 1.05rem; line-height: 1.5; margin: 0 0 28px; }
+  a.btn {
+    display: inline-block; background: var(--btn); color: #fff; text-decoration: none;
+    font-weight: 600; font-size: 1.1rem; padding: 16px 32px; border-radius: 999px;
+  }
+  a.btn:hover, a.btn:focus-visible { background: var(--btn-hover); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Atendimento direto no Telegram</h1>
+  <p>Clique no botão abaixo e converse agora com nosso atendente.</p>
+  <a id="cta" class="btn" href="https://ravenbot.com.br/l/92bf98fa?rvn=08dmvjxh">Falar no Telegram</a>
+</main>
+
+<script>
+  // Repassa os parâmetros do anúncio (utm_*) para o link da Ravenbot
+  (function () {
+    var cta = document.getElementById('cta');
+    var base = cta.getAttribute('href');
+    var extra = window.location.search.replace(/^\?/, '');
+    if (extra) cta.href = base + '&' + extra;
+
+    // Registra o clique como evento no Pixel
+    cta.addEventListener('click', function () {
+      try { fbq('track', 'Lead'); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
