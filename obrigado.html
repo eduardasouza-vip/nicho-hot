@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagamento confirmado</title>
+
+<!--
+  ============================================================
+  TROQUE SÓ ESTAS 3 LINHAS (dentro do <script> logo abaixo):
+    PIXEL_ID  -> já está o seu
+    VALOR     -> preço real da assinatura (use ponto, ex: 29.90)
+    LINK      -> link do grupo/canal do Telegram que o cliente recebe
+  ============================================================
+-->
+
+<style>
+  :root {
+    --fundo: #f6f7f9;
+    --texto: #16202a;
+    --suave: #5b6773;
+    --botao: #1f8f5f;
+    --botao-texto: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fundo: #10161c;
+      --texto: #eef2f5;
+      --suave: #9aa7b2;
+      --botao: #2fb87c;
+      --botao-texto: #06210f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+  }
+  main { max-width: 360px; }
+  h1 { font-size: 1.5rem; margin: 0 0 8px; }
+  p { color: var(--suave); margin: 0 0 24px; line-height: 1.5; }
+  a.botao {
+    display: inline-block;
+    background: var(--botao);
+    color: var(--botao-texto);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 10px;
+  }
+  a.botao:focus-visible { outline: 3px solid var(--texto); outline-offset: 3px; }
+</style>
+
+<script>
+  // ===== CONFIGURAÇÃO (troque aqui) =====
+  var PIXEL_ID = "4685983051687088";
+  var VALOR    = 29.90;                       // valor de TESTE: troque pelo preço real
+  var LINK     = "https://t.me/seu_canal";    // link de TESTE: troque pelo link real
+  // ======================================
+
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', PIXEL_ID);
+  fbq('track', 'PageView');
+
+  // Evita contar a mesma compra duas vezes se a pessoa recarregar a página
+  var jaContou = false;
+  try { jaContou = sessionStorage.getItem('purchase_enviado') === '1'; } catch (e) {}
+
+  if (!jaContou) {
+    fbq('track', 'Purchase', { value: VALOR, currency: 'BRL' });
+    try { sessionStorage.setItem('purchase_enviado', '1'); } catch (e) {}
+  }
+
+  // Espera um instante para o evento sair e depois leva ao Telegram
+  window.addEventListener('load', function () {
+    var botao = document.getElementById('entrar');
+    botao.href = LINK;
+    setTimeout(function () { window.location.href = LINK; }, 2000);
+  });
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=4685983051687088&ev=PageView&noscript=1">
+</noscript>
+</head>
+<body>
+  <main>
+    <h1>Pagamento confirmado</h1>
+    <p>Estamos abrindo o seu acesso. Se não abrir sozinho, toque no botão.</p>
+    <a id="entrar" class="botao" href="#">Acessar meu grupo</a>
+  </main>
+</body>
+</html>
